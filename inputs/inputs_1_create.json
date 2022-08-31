@@ -1,0 +1,13 @@
+{
+  "APIKey": "MockAPIKey",
+  "EntityGuid": "SOME_ENTITY_GUID",
+  "Tags": [
+    {
+      "Key": "Key1",
+      "Values": [
+        "Key1-Value1",
+        "Key1-Value2"
+      ]
+    }
+  ]
+}
