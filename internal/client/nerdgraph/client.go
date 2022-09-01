@@ -19,22 +19,6 @@ type errors struct {
    Message     string `json:"message"`
 }
 
-// For things like syntax errors, errors that occur before getting to the API
-/*
-   {
-     "errors": [
-       {
-         "locations": [
-           {
-             "column": 12,
-             "line": 3
-           }
-         ],
-         "message": "Argument \"guid\" has invalid value MTA3NDA4M3xWSVp8REFTSEJPQVJEfGRhOjE3MTk0NTk."
-       }
-     ]
-   }
-*/
 type topLevelErrors struct {
    Errors []interface{} `json:"errors"`
 }

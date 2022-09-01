@@ -125,9 +125,9 @@ cfn submit --set-default --no-role --region us-east-1
 # Test the private resource with the sample template to ensure it works
 aws cloudformation deploy --region us-east-1 --template-file template-examples-live/sample.yml --stack-name tagging-test-stack
 # Tell AWS to run the Contract Tests, required for going public
-aws cloudformation test-type --region us-east-1 --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-dashboards  --log-delivery-bucket newrelic--cloudformation--dashboards
+aws cloudformation test-type --region us-east-1 --log-delivery-bucket newrelic--cloudformation--custom--resources --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-tagging
 # Check the result
-aws cloudformation describe-type --region us-east-1 --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-dashboards 
+aws cloudformation describe-type --region us-east-1  --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-tagging
 # Also the logs are in CloudWatch. They end in .zip but are really gunzip so
 # gunzip -S .zip <file>
 # Publish the extension publicly AFTER pushing the final version to GitHub AND generating/tagging a release
@@ -142,6 +142,9 @@ aws cloudformation describe-type --region us-east-1 --arn arn:aws:cloudformation
 #
 # It's a good idea to not publish until everything is ready AND version 1.0.0 is release in Git!
 # KEEP IT ALL IN-SYNC!
+#
+# Git
+#
 aws cloudformation publish-type --region us-east-1 --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-dashboards  
 aws cloudformation describe-type --region us-east-1 --arn arn:aws:cloudformation:us-east-1:830139413159:type/resource/newrelic-cloudformation-dashboards
 ```

@@ -35,14 +35,6 @@ const callbackDelaySeconds = 2
 // Create handles the Create event from the Cloudformation service.
 func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler.ProgressEvent, error) {
    fmt.Println("")
-   // defer func() {
-   //    if panicInfo := recover(); panicInfo != nil {
-   //       fmt.Printf("%v, %s", panicInfo, string(debug.Stack()))
-   //       panic(panicInfo)
-   //    }
-   // }()
-   // log.Debugf("Create: currentModel: %+v", currentModel)
-   // log.Debugf("Create: prevModel: %+v", prevModel)
    utils.DumpModel(currentModel, "Create: In: currentModel")
    utils.DumpModel(prevModel, "Create: In: prevModel")
    setEnv(currentModel)
@@ -55,11 +47,10 @@ func Create(req handler.Request, prevModel *Model, currentModel *Model) (handler
    }
 
    // We'll return this now, and save it away as the current default ProgressEvent
-   //   guid := "faux"
    defaultEvent := handler.ProgressEvent{
       OperationStatus:      handler.InProgress,
       Message:              "Create in progress",
-      ResourceModel:        skeletonModel(currentModel),
+      ResourceModel:        shadowModel(currentModel),
       CallbackContext:      createCallbackContext(req),
       CallbackDelaySeconds: callbackDelaySeconds,
    }
@@ -95,7 +86,7 @@ func Update(req handler.Request, prevModel *Model, currentModel *Model) (handler
    defaultEvent := handler.ProgressEvent{
       OperationStatus:      handler.InProgress,
       Message:              "Update in progress",
-      ResourceModel:        skeletonModel(currentModel),
+      ResourceModel:        shadowModel(currentModel),
       CallbackContext:      createCallbackContext(req),
       CallbackDelaySeconds: callbackDelaySeconds,
    }
@@ -131,7 +122,7 @@ func Delete(req handler.Request, prevModel *Model, currentModel *Model) (handler
    defaultEvent := handler.ProgressEvent{
       OperationStatus:      handler.InProgress,
       Message:              "delete in progress",
-      ResourceModel:        skeletonModel(currentModel),
+      ResourceModel:        shadowModel(currentModel),
       CallbackContext:      createCallbackContext(req),
       CallbackDelaySeconds: callbackDelaySeconds,
    }
@@ -177,7 +168,6 @@ func List(req handler.Request, prevModel *Model, currentModel *Model) (handler.P
 }
 
 // UGLY hack to work around circular dependencies
-// TODO skeleton model with faux guid, copy of any non-writeOnly fields
 // TODO Abstract
 func shadowModel(in *Model) *model.Model {
    out := model.Model{
@@ -199,18 +189,6 @@ func shadowModel(in *Model) *model.Model {
    }
    out.Tags = tags
    return &out
-}
-
-func skeletonModel(cm *Model) *model.Model {
-   // From the contract:
-   //    Every model MUST include the primaryIdentifier. The only exception is if the first progress event is FAILED, and the resource hasn't yet been created. In this case, a subsequent read call MUST return NotFound.
-   // m := &model.Model{
-   //    Guid:       cm.EntityGuid,
-   //    EntityGuid: cm.EntityGuid,
-   //    Tags:       cm.Tags,
-   // }
-   // return m
-   return shadowModel(cm)
 }
 
 // FIXME Ugly hack until we figure-out how to set either the entrypoint or envvars for `test-type` so we don't leak security credentials into AWS

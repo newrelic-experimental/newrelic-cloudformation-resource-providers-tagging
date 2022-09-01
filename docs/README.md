@@ -1,6 +1,6 @@
 # newrelic::cloudformation::tagging
 
-CRUDL operations for New Relic Tags via the NerdGraph API
+CRUD operations for New Relic Tags via the NerdGraph API
 
 ## Syntax
 

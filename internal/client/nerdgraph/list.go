@@ -7,18 +7,6 @@ import (
    "newrelic-cloudformation-tagging/internal/model"
 )
 
-/*
- "data": {
-    "actor": {
-      "entitySearch": {
-        "count": 61,
-        "results": {
-          "entities": [
-            {
-              "guid": "MTA3NDA4M3xWSVp8REFTSEJPQVJEfGRhOjM2MjIyNA"
-            },
-
-*/
 type listResponse struct {
    Data listData `json:"data"`
 }
@@ -41,7 +29,7 @@ type listEntities struct {
 }
 
 // List only gets 30 seconds to do its work, IN_PROGRESS is not allowed
-// NOTE: entitySearch requires several seconds to index a newly created Dashboard. Read the guid in the model and append it to the list result.
+// NOTE: entitySearch requires several seconds to index a newly created entity. Read the guid in the model and append it to the list result.
 func (i *nerdgraph) List(m *model.Model) ([]interface{}, error) {
    // TODO what is the List search criteria? How do we query for all entities in an account that have tags?
    log.Debugf("List: enter: guid: %s", *m.Guid)

@@ -9,16 +9,6 @@ import (
    "strings"
 )
 
-/*
-{mutation {
-  taggingAddTagsToEntity(guid: "", tags: [{key: "key1", values: ["key1-value1"]}]) {
-    errors {
-      message
-      type
-    }
-  }
-}
-*/
 type createResponse struct {
    Data createData `json:"data"`
 }

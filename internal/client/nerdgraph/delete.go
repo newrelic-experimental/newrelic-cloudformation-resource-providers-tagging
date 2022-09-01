@@ -7,15 +7,6 @@ import (
    "newrelic-cloudformation-tagging/internal/model"
 )
 
-/*
-{{
-  "data": {
-    "taggingDeleteTagFromEntity": {
-      "errors": []
-    }
-  }
-*/
-
 type deleteResponse struct {
    Data deleteData `json:"data"`
 }
