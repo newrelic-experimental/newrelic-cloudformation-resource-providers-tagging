@@ -1,0 +1,13 @@
+{
+    "EntityGuid": "MTA3NDA4M3xWSVp8REFTSEJPQVJEfGRhOjE3MTk0NTk",
+    "Guid": "MTA3NDA4M3xWSVp8REFTSEJPQVJEfGRhOjE3MTk0NTk",
+    "Tags": [
+        {
+            "Key": "Key100",
+            "Values": [
+                "Key100-Value1-Update",
+                "Key100-Value2-Update"
+            ]
+        }
+    ]
+}

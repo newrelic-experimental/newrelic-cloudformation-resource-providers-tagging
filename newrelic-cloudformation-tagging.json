@@ -1,0 +1,92 @@
+{
+  "typeName": "NewRelic::CloudFormation::Tagging",
+  "description": "CRUD operations for New Relic Tags via the NerdGraph API",
+  "sourceUrl": "https://github.com/newrelic-experimental/newrelic-cloudformation-resource-providers-tagging.git",
+  "properties": {
+    "Guid": {
+      "type": "string"
+    },
+    "EntityGuid": {
+      "type": "string"
+    },
+    "ListQueryFilter": {
+      "type": "string"
+    },
+    "Variables": {
+      "type": "object",
+      "patternProperties": {
+        "^[A-Za-z0-9]{1,64}$": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Tags": {
+      "type": "array",
+      "insertionOrder": false,
+      "items": {
+        "$ref": "#/definitions/TagObject"
+      }
+    },
+    "Semantics": {
+      "type": "string",
+      "default": "Map"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "EntityGuid",
+    "Tags"
+  ],
+  "primaryIdentifier": [
+    "/properties/Guid",
+    "/properties/Tags"
+  ],
+  "readOnlyProperties": [
+    "/properties/Guid"
+  ],
+  "handlers": {
+    "create": {
+      "permissions": [
+        "cloudformation:BatchDescribeTypeConfigurations"
+      ]
+    },
+    "read": {
+      "permissions": [
+        "cloudformation:BatchDescribeTypeConfigurations"
+      ]
+    },
+    "update": {
+      "permissions": [
+        "cloudformation:BatchDescribeTypeConfigurations"
+      ]
+    },
+    "delete": {
+      "permissions": [
+        "cloudformation:BatchDescribeTypeConfigurations"
+      ]
+    }
+  },
+  "definitions": {
+    "TagObject": {
+      "type": "object",
+      "required": [
+        "Key",
+        "Values"
+      ],
+      "properties": {
+        "Key": {
+          "type": "string"
+        },
+        "Values": {
+          "type": "array",
+          "insertionOrder": false,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
